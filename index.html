@@ -1,0 +1,42 @@
+
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		// Run: python -m SimpleHTTPServer
+		
+		// Main function
+		$(function(){
+			// console.log("hello dhruvin");	
+			ws1 = new WebSocket("ws://localhost:3011")
+			ws2 = new WebSocket("ws://localhost:3012")
+
+			// btn = document.getElementByID("myButton")
+			btn = $("#myButton")
+			txtbox = $("#myText")
+			byline = $("#myT")
+
+			// console.log(btn, txtbox);
+			// console.log(txtbox.val());
+
+			btn.click(function() {
+				// WHEN BUTTON IS CLICKED
+			  	// alert( "Handler for .click() called." );
+			  	byline.html(txtbox.val());
+			  	ws1.send(txtbox.val());
+			  	ws2.send(txtbox.val());
+			});
+
+		})
+
+
+
+	</script>
+</head>
+<body>
+	<h1> Hello Dancers! </h1>
+	<p id="myT"> This is a prototype for MDT2019</p>
+	<input id="myText" type="text" value="Dhruvin"/>
+	<button id="myButton"> CLICK ME </button>
+</body>
+</html>
