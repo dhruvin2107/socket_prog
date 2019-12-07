@@ -1,35 +1,21 @@
-# require 'em-websocket'
-
-
+require 'em-websocket'
 require 'json'
 require 'serialport'
-# require 'em-websocket'
 
 
 serial_process = true
-websocket_process = false
+websocket_process = true
 
-# EventMachine.run do
-#   @channel = EM::Channel.new
+EventMachine.run do
+  @channel = EM::Channel.new
   
   if serial_process
     # ESTABLISH CONNECTION TO SERIALPORT
     @baud = 9600
-    @usb = "\\\\.\\COM10"
-
-    serial = Win32SerialPort::SerialPort.new
-    @sp = serial.open(
-      @usb,                        # port name
-      @baud,                        # baudrate
-      Win32SerialPort::FLOW_NONE,    # no flow control
-      8,                             # 8 data bits
-      Win32SerialPort::NOPARITY,     # no parity bits
-      Win32SerialPort::ONESTOPBIT)   # one stop bit
-    
-    # # ERROR HANDLING
-    # return 0 if false == @sp
-
-
+    @usb = ARGV[3]
+    @sp = SerialPort.new(@usb, @baud, 8, 1, SerialPort::NONE)
+    print "SERIAL OPEN:" + @usb
+    @sp.write "1"
     # @sp = Win32SerialPort::SerialPort.new(@usb, @baud, 8, 1, SerialPort::NONE)
     @sid = nil
     
@@ -75,4 +61,4 @@ websocket_process = false
 
     puts "M: SERVER STARTED"
   end
-# end
+end

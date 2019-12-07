@@ -2,7 +2,7 @@ require 'serialport'
 
 # ESTABLISH CONNECTION TO SERIALPORT
 
-@sp = SerialPort.new("\\\\.\\COM9", 9600)
+@sp = SerialPort.new("/dev/rfcomm0", 9600)
 while true do
   printf("%c", @sp.getc)
 end
